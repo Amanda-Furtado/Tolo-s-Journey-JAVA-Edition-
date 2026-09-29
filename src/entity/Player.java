@@ -28,7 +28,6 @@ public class Player extends Entity {
 	}
 	
 	public void setDefaultValues(){
-
 		x = gp.tileSize * 5;
 		y = gp.screenHeight/2 - (gp.tileSize / 2);
 		speed = 4;
