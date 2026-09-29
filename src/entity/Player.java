@@ -28,8 +28,9 @@ public class Player extends Entity {
 	}
 	
 	public void setDefaultValues(){
-		x = 100;
-		y = 100;
+
+		x = gp.tileSize * 5;
+		y = gp.screenHeight/2 - (gp.tileSize / 2);
 		speed = 4;
 		// direction = "left";
 	}

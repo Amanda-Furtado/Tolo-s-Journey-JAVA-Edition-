@@ -22,7 +22,7 @@ public class TileManager {
         mapTileNum = new int[gp.maxScreenCollum][gp.maxScreenRow];
 
         getTileImage();
-        loadMap();
+        loadMap("/res/maps/moonMap.txt");
     }
 
     public void getTileImage(){
@@ -35,9 +35,9 @@ public class TileManager {
     }
 
 
-    public void loadMap(){
+    public void loadMap(String mapPath){
         try {
-            InputStream is = getClass().getResourceAsStream("/res/maps/moonMap.txt");
+            InputStream is = getClass().getResourceAsStream(mapPath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int collum = 0;
