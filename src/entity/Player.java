@@ -25,7 +25,7 @@ public class Player extends Entity {
 		this.gp = gp;
 		this.keyM = keyM;
 		
-		hurtBox = new Rectangle(4, 4, gp.tileSize - 16, gp.tileSize - 16);
+		this.hurtBox = new Rectangle(12, 12, gp.tileSize - 24, gp.tileSize - 24);
 		this.collisionBox = new Rectangle(8, 8, gp.tileSize - 16, gp.tileSize - 16);
 		//this.collisionBox = new Ellipse2D.Float(8, 8, gp.tileSize - 16, gp.tileSize - 16);
 
@@ -119,8 +119,13 @@ public class Player extends Entity {
 		image = regular;
 		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
 		
-		g2.setColor(Color.red);
-    	g2.fillRect(x + collisionBox.x, y + collisionBox.y, collisionBox.width, collisionBox.height);
+		//g2.setColor(Color.red);
+    	//g2.fillRect(x + collisionBox.x, y + collisionBox.y, collisionBox.width, collisionBox.height);
+
+		g2.setColor(Color.green);
+    	g2.fillRect(x + hurtBox.x, y + hurtBox.y, hurtBox.width, hurtBox.height);
+
+		
 		
 	}
 
