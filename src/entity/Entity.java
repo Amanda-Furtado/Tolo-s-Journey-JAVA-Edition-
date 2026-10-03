@@ -11,7 +11,7 @@ public abstract class Entity {
 	public int speed;
 	
 	public BufferedImage regular;
-	public String direction = "left";
+	public String direction;
 
 	public Rectangle collisionBox;
 	public boolean collisionOn = false;

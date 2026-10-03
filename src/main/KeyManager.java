@@ -16,14 +16,14 @@ public class KeyManager implements KeyListener {
 		if(code == KeyEvent.VK_W) {
 			upPressed = true;
 		}
-		else if(code == KeyEvent.VK_S) {
+		if(code == KeyEvent.VK_S) {
 			downPressed = true;
 		}
 		if(code == KeyEvent.VK_A) {
 			leftPressed = true;
 
 		}
-		else if(code == KeyEvent.VK_D) {
+		if(code == KeyEvent.VK_D) {
 			rightPressed = true;
 		}
 	}
@@ -34,14 +34,14 @@ public class KeyManager implements KeyListener {
 		if(code == KeyEvent.VK_W) {
 			upPressed = false;
 		}
-		else if(code == KeyEvent.VK_S) {
+		if(code == KeyEvent.VK_S) {
 			downPressed = false;
 		}
 		if(code == KeyEvent.VK_A) {
 			leftPressed = false;
 
 		}
-		else if(code == KeyEvent.VK_D) {
+		if(code == KeyEvent.VK_D) {
 			rightPressed = false;
 		}
 

@@ -24,8 +24,8 @@ public class Player extends Entity {
 		this.gp = gp;
 		this.keyM = keyM;
 		
-		hurtBox = new Rectangle(gp.tileSize/2, gp.tileSize/2, gp.tileSize - 16, gp.tileSize - 16);
-		collisionBox = new Rectangle(gp.tileSize/2, gp.tileSize/2, gp.tileSize - 16, gp.tileSize - 16);
+		hurtBox = new Rectangle(4, 4, gp.tileSize - 16, gp.tileSize - 16);
+		collisionBox = new Rectangle(4, 4, gp.tileSize - 16, gp.tileSize - 16);
 
 		setDefaultValues();
 		getPlayerImage();
@@ -71,34 +71,54 @@ public class Player extends Entity {
 	}
 	
 	public void update(){
-		if(keyM.upPressed == true){
-			direction = "up";
-			y -= speed;
-		}
-		if(keyM.downPressed == true){
-			direction = "down";
-			y += speed;
-		}
-		if(keyM.leftPressed == true){
-			direction = "left";
-			x -= speed;
-		}
-		if(keyM.rightPressed == true){
-			direction = "right";
-			x += speed;
-		}
+		if(keyM.upPressed == true || keyM.downPressed == true || keyM.leftPressed == true || keyM.rightPressed == true){
+			if(keyM.upPressed == true){
+				direction = "up";
+			}
+			else if(keyM.downPressed == true){
+				direction = "down";
+			}
+			else if(keyM.leftPressed == true){
+				direction = "left";
+			}
+			else if(keyM.rightPressed == true){
+				direction = "right";
+			}
 
-		collisionOn = false;
-		gp.collisionM.checkTile(this);
+			collisionOn = false;
+			gp.collisionM.checkTile(this);
+
+			if(collisionOn == false){
+				switch (direction) {
+					case "up":
+						y -= speed;
+						break;
+					case "down":
+						y += speed;
+						break;
+					case "left":
+						x -= speed;
+						break;
+					case "right":
+						x += speed;
+						break;
+					default:
+						break;
+				}
+			}
+		}
 
 	}
 
 	public void draw(Graphics2D g2){
-		//g2.setColor(Color.white);
-		//g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+		
 		BufferedImage image = null;
 		image = regular;
 		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+		
+		g2.setColor(Color.red);
+		g2.fillRect(hurtBox.x, hurtBox.y, gp.tileSize - 16, gp.tileSize - 16);
+		
 	}
 
 }
