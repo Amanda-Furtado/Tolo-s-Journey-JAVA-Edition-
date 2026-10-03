@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 
 public class Player extends Entity {
 	GamePanel gp;
@@ -23,15 +24,19 @@ public class Player extends Entity {
 		this.gp = gp;
 		this.keyM = keyM;
 		
+		hurtBox = new Rectangle(gp.tileSize/2, gp.tileSize/2, gp.tileSize - 16, gp.tileSize - 16);
+		collisionBox = new Rectangle(gp.tileSize/2, gp.tileSize/2, gp.tileSize - 16, gp.tileSize - 16);
+
 		setDefaultValues();
 		getPlayerImage();
 	}
 	
 	public void setDefaultValues(){
+		life = 3;
 		x = gp.tileSize * 5;
 		y = gp.screenHeight/2 - (gp.tileSize / 2);
 		speed = 4;
-		// direction = "left";
+		direction = "left";
 	}
 
 	public void getPlayerImage(){
@@ -42,20 +47,50 @@ public class Player extends Entity {
 			e.printStackTrace();
 		}
 	}
+
+	@Override 
+	public void gotHurt(){
+		if(canHurt){
+			life--;
+		}
+
+		System.out.printf("Life: %d\n", life);
+		canHurt = false;
+
+		try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.println("Deu erro no tempo de espera.\n");
+        }
+		canHurt = true;
+    }
+
+	@Override 
+	public void gotStuck(){
+
+	}
 	
 	public void update(){
 		if(keyM.upPressed == true){
+			direction = "up";
 			y -= speed;
 		}
-		else if(keyM.downPressed == true){
+		if(keyM.downPressed == true){
+			direction = "down";
 			y += speed;
 		}
-		else if(keyM.leftPressed == true){
+		if(keyM.leftPressed == true){
+			direction = "left";
 			x -= speed;
 		}
 		if(keyM.rightPressed == true){
+			direction = "right";
 			x += speed;
-		}	
+		}
+
+		collisionOn = false;
+		gp.collisionM.checkTile(this);
+
 	}
 
 	public void draw(Graphics2D g2){

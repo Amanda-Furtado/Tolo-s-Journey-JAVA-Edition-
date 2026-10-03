@@ -1,4 +1,4 @@
-package main.tile;
+package tile;
 
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
@@ -13,12 +13,12 @@ import main.GamePanel;
 public class TileManager {
     public GamePanel gp;
     public Tile[] tile;
-    int mapTileNum[][];
+    public int mapTileNum[][];
 
     public TileManager(GamePanel gp){
         this.gp = gp;
 
-        tile = new Tile[2]; //numero de tiles diferentes.
+        tile = new Tile[3]; //numero de tiles diferentes.
         mapTileNum = new int[gp.maxScreenCollum][gp.maxScreenRow];
 
         getTileImage();
@@ -27,8 +27,18 @@ public class TileManager {
 
     public void getTileImage(){
         try {
+            //vazio
+            tile[0] = new Tile();
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/empty_tile_spr.png"));
+            //bloqueador
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/ocean_top_spr.png"));
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/empty_tile_spr.png"));
+            tile[1].collision = true;
+
+            tile[2] = new Tile();
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/ocean_top_spr.png"));
+            tile[2].collision = true;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,15 +79,19 @@ public class TileManager {
 
 
     public void draw(Graphics2D g2){
-        int collum = 0;
-        int row = 0;
+        int collum = 1;
+        int row = 1;
         int x = 0;
         int y = 0;
+       
 
-        while(collum < gp.maxScreenCollum && row < gp.maxScreenRow){
+        while(collum < gp.maxScreenCollum - 2 && row <= gp.maxScreenRow - 2){
             int tileNum = mapTileNum[collum][row];
 
             if(tileNum == 0){
+                collum++;
+                x += gp.tileSize;
+            } else if (tileNum == 1){
                 collum++;
                 x += gp.tileSize;
             } else {
@@ -87,13 +101,12 @@ public class TileManager {
             }
             
 
-            if(collum == gp.maxScreenCollum){
-                collum = 0;
+            if(collum == gp.maxScreenCollum - 2){
+                collum = 1;
                 x = 0;
                 row++;
                 y += gp.tileSize;
             }
-
         }
     }
 

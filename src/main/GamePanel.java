@@ -8,19 +8,18 @@ import java.awt.Graphics2D;
 
 
 import entity.Player;
-import main.tile.TileManager;
+import tile.TileManager;
 
 
 public class GamePanel extends JPanel implements Runnable{
-	// originalTileSize => genericTileSize
 	final int genericTileSize = 16;
 	final int scale = 3;
 
 	public final int tileSize = genericTileSize * scale;
-	public final int maxScreenCollum = 16;
-	public final int maxScreenRow = 12;
-	public final int screenWidth = tileSize * maxScreenCollum;
-	public final int screenHeight = tileSize * maxScreenRow;
+	public final int maxScreenCollum = 16 + 2;
+	public final int maxScreenRow = 12 + 2;
+	public final int screenWidth = tileSize * (maxScreenCollum - 2);
+	public final int screenHeight = tileSize * (maxScreenRow - 2);
 	
 	Color bgColor = new Color(50, 51, 83);
 	
@@ -30,6 +29,7 @@ public class GamePanel extends JPanel implements Runnable{
 	TileManager tileM = new TileManager(this);
 	KeyManager keyM = new KeyManager();
 	Thread gameThread;
+	public CollisionManager collisionM = new CollisionManager(this);
 	Player player = new Player(this, keyM);
 	
 	
@@ -77,7 +77,7 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 			
 			if(timer >= 1000000000){
-				System.out.println("FPS: "+ drawCount);
+				//System.out.println("FPS: "+ drawCount);
 				drawCount = 0;
 				timer = 0;
 			}
