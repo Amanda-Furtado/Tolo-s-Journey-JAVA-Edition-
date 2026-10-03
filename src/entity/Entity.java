@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Rectangle;
+//import java.awt.Shape;
 import java.awt.image.BufferedImage;
 
 

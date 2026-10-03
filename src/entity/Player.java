@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.geom.Ellipse2D;
 
 public class Player extends Entity {
 	GamePanel gp;
@@ -25,7 +26,8 @@ public class Player extends Entity {
 		this.keyM = keyM;
 		
 		hurtBox = new Rectangle(4, 4, gp.tileSize - 16, gp.tileSize - 16);
-		collisionBox = new Rectangle(4, 4, gp.tileSize - 16, gp.tileSize - 16);
+		this.collisionBox = new Rectangle(8, 8, gp.tileSize - 16, gp.tileSize - 16);
+		//this.collisionBox = new Ellipse2D.Float(8, 8, gp.tileSize - 16, gp.tileSize - 16);
 
 		setDefaultValues();
 		getPlayerImage();
@@ -111,13 +113,14 @@ public class Player extends Entity {
 	}
 
 	public void draw(Graphics2D g2){
-		
+		//g2.setColor(Color.red);
+		//g2.fillRect(hurtBox.x, hurtBox.y, gp.tileSize - 16, gp.tileSize - 16);
 		BufferedImage image = null;
 		image = regular;
 		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
 		
 		g2.setColor(Color.red);
-		g2.fillRect(hurtBox.x, hurtBox.y, gp.tileSize - 16, gp.tileSize - 16);
+    	g2.fillRect(x + collisionBox.x, y + collisionBox.y, collisionBox.width, collisionBox.height);
 		
 	}
 

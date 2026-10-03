@@ -10,15 +10,15 @@ public class CollisionManager {
     }
 
     public void checkTile(Entity entity){
-        int entityLeftX = entity.x + entity.collisionBox.x;
-        int entityRightX = entity.x + entity.collisionBox.x + entity.collisionBox.width;
-        int entityTopY = entity.y + entity.collisionBox.y;
-        int entityBotY = entity.y + entity.collisionBox.height;
+        int entityLeftX = entity.x + entity.collisionBox.x + gp.tileSize;
+        int entityRightX = entity.x + entity.collisionBox.x + entity.collisionBox.width - 1;
+        int entityTopY = entity.y + entity.collisionBox.y + gp.tileSize;
+        int entityBotY = entity.y + entity.collisionBox.y + entity.collisionBox.height - 1;
         
         int entityLeftCol = entityLeftX/gp.tileSize;
-        int entityRightCol = entityRightX/gp.tileSize;
+        int entityRightCol = (entityRightX/gp.tileSize) + 1;
         int entityTopRow = entityTopY/gp.tileSize;
-        int entityBotRow = entityBotY/gp.tileSize;
+        int entityBotRow = (entityBotY/gp.tileSize) + 1;
 
         int tileNum1, tileNum2;
 
@@ -33,10 +33,11 @@ public class CollisionManager {
                 }
                 break;
             case "down":
-                entityBotRow = (entityBotY + entity.speed)/gp.tileSize;
+                entityBotRow = ((entityBotY + entity.speed)/gp.tileSize) + 1;
                 tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBotRow];
                 tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBotRow];
                 if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
+                    entity.collisionOn = true;
                     entity.gotStuck();
                 }
                 break;
@@ -45,14 +46,16 @@ public class CollisionManager {
                 tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBotRow];
                 if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
+                    entity.collisionOn = true;
                     entity.gotStuck();
                 }
                 break;
             case "right":
-                entityRightCol = (entityRightX + entity.speed)/gp.tileSize;
+                entityRightCol = ((entityRightX + entity.speed)/gp.tileSize) + 1;
                 tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
                 tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBotRow];
                 if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
+                    entity.collisionOn = true;
                     entity.gotStuck();
                 }
                 break;

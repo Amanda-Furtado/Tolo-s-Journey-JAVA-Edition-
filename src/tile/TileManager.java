@@ -32,7 +32,7 @@ public class TileManager {
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/empty_tile_spr.png"));
             //bloqueador
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/empty_tile_spr.png"));
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/block_spr.png"));
             tile[1].collision = true;
 
             tile[2] = new Tile();
@@ -92,6 +92,7 @@ public class TileManager {
                 collum++;
                 x += gp.tileSize;
             } else if (tileNum == 1){
+                g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
                 collum++;
                 x += gp.tileSize;
             } else {
